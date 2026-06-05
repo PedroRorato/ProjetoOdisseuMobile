@@ -20,13 +20,13 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors.light.primary,
-        headerShown: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
           title: "Diário",
+          headerTitleAlign: 'center',
           tabBarIcon: ({ color }) => (
             <TabBarIcon name="check-square-o" color={color} />
           ),
@@ -35,6 +35,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="habits"
         options={{
+          headerShown: false,
           title: "Hábitos",
           tabBarIcon: ({ color }) => <TabBarIcon name="table" color={color} />,
         }}

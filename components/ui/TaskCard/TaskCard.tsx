@@ -1,9 +1,9 @@
-import { Pressable, View, StyleSheet } from "react-native";
-import Typography from "../Typography";
-import Colors from "@/constants/Colors";
+import { supabase } from "@/supabase-client";
 import { Task } from "@/types/task";
 import { useState } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
 import Checkbox from "../Checkbox/Checkbox";
+import Typography from "../Typography";
 
 type TaskCardProps = {
   data: Task;
@@ -12,9 +12,24 @@ type TaskCardProps = {
 const TaskCard = ({ data }: TaskCardProps) => {
   const [isChecked, setIsChecked] = useState(false);
 
-  const handleClick = () => {
-    console.log("handleClick");
+  const handleClick = async () => {
+    const today = new Date().toISOString().split('T')[0];
+    console.log("handleClick", today);
+    const payload = {
+      habit_id: data.id,
+      user_id: 1,
+      date: today,
+    }
+
     setIsChecked((prev) => !prev);
+    if(!isChecked) {
+      const { error } = await supabase.from("habits_log").insert(payload).single();
+
+      if (error) {
+        console.log("Error:", error);
+        setIsChecked((prev) => !prev);
+      }
+    }
   };
 
   return (
@@ -35,7 +50,7 @@ const TaskCard = ({ data }: TaskCardProps) => {
 const styles = StyleSheet.create({
   container: {
     //flex: 1,
-    backgroundColor: Colors.light.surface,
+    backgroundColor: 'white',
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,

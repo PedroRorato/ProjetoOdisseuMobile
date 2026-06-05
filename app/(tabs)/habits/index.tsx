@@ -1,7 +1,6 @@
 import { ScrollView, StyleSheet } from "react-native";
 
-import { View } from "@/components/Themed";
-import FloatingButton from "@/components/ui/FloatingButton/FloatingButton";
+
 import HabitsGrid from "@/components/ui/HabitsGrid";
 import { supabase } from "@/supabase-client";
 import { useRouter } from "expo-router";
@@ -32,13 +31,8 @@ const Habits = () => {
   return (
     <ScrollView style={styles.container}>
 
-      <View>
-
-      </View>
-
       <HabitsGrid />
 
-      <FloatingButton onPress={() => router.push("/habits/add")} />
     </ScrollView>
   );
 }
@@ -49,8 +43,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 16,
-    paddingTop: 16,
+    paddingTop: 20,
   },
-
-
 });

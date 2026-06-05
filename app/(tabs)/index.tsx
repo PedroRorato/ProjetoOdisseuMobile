@@ -1,9 +1,9 @@
 import { FlatList, StyleSheet } from "react-native";
 
 import { View } from "@/components/Themed";
-import Typography from "@/components/ui/Typography";
 
 import TaskCard from "@/components/ui/TaskCard/TaskCard";
+import Colors from "@/constants/Colors";
 import { supabase } from "@/supabase-client";
 import { useEffect, useState } from "react";
 
@@ -29,15 +29,8 @@ export default function TabOneScreen() {
 
   return (
     <View style={styles.container}>
-      <Typography
-        variant="title"
-        style={{ paddingBlock: 14, textAlign: "center" }}
-      >
-        Diário
-      </Typography>
-
       <FlatList
-        style={{ flex: 1, width: "100%" }}
+        style={styles.list}
         data={habits}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <TaskCard data={item} />}
@@ -49,6 +42,12 @@ export default function TabOneScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
   },
+  list: {
+    flex: 1,
+    width: "100%",
+    paddingTop: 20,
+    paddingHorizontal: 16,
+    backgroundColor: Colors.light.surface
+  }
 });
