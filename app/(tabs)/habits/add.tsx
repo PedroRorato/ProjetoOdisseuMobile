@@ -1,7 +1,7 @@
+import { postHabit } from "@/api/habitsApi";
 import { View } from "@/components/Themed";
 import Button from "@/components/ui/Button";
 import FormInput from "@/components/ui/FormInput";
-import { supabase } from "@/supabase-client";
 import { useRouter } from "expo-router";
 import { useForm } from "react-hook-form";
 import { StyleSheet } from "react-native";
@@ -11,10 +11,8 @@ const AddHabit = () => {
 
   const { control, handleSubmit } = useForm();
 
-  const onSubmit = async (data) => {
-    const { error } = await supabase.from("habits").insert(data).single();
-
-    if (error) console.log("Error:", error);
+  const onSubmit = async (data: any) => {
+    await postHabit(data);
 
     router.push("/habits");
   };

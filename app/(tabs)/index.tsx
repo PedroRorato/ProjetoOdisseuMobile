@@ -2,30 +2,32 @@ import { FlatList, StyleSheet } from "react-native";
 
 import { View } from "@/components/Themed";
 
+import { fetchHabits } from "@/api/habitsApi";
+import { fetchHabitsLog } from "@/api/habitsLogApi";
+
 import TaskCard from "@/components/ui/TaskCard/TaskCard";
 import Colors from "@/constants/Colors";
-import { supabase } from "@/supabase-client";
 import { useEffect, useState } from "react";
 
 export default function TabOneScreen() {
-  const [habits, setHabits] = useState([]);
+  const [habits, setHabits] = useState<any>([]);
 
-  const fetchHabits = async () => {
-    const { error, data } = await supabase.from("habits").select("*");
+  const fetchHabitsData = async () => {
+    const data = await fetchHabits();
+    setHabits(data);
+    console.log('fetchHabitsData', data)
+  };
 
-    if (error) {
-      console.log("Error", error);
-    } else {
-      console.log("Data", data);
-      setHabits(data);
-    }
+  const fetchHabitsLogData = async () => {
+    const today = new Date();
+    const data = await fetchHabitsLog(today.getMonth(), today.getFullYear());
+    console.log('fetchHabitsLogData', data)
   };
 
   useEffect(() => {
-    fetchHabits();
+    fetchHabitsData();
+    fetchHabitsLogData();
   }, []);
-
-  console.log("API test");
 
   return (
     <View style={styles.container}>

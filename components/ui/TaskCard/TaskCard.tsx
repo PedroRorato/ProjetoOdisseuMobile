@@ -1,4 +1,4 @@
-import { supabase } from "@/supabase-client";
+import { postHabitLog } from "@/api/habitsLogApi";
 import { Task } from "@/types/task";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
@@ -23,12 +23,14 @@ const TaskCard = ({ data }: TaskCardProps) => {
 
     setIsChecked((prev) => !prev);
     if(!isChecked) {
-      const { error } = await supabase.from("habits_log").insert(payload).single();
+      postHabitLog(payload)
 
+      /*
       if (error) {
         console.log("Error:", error);
         setIsChecked((prev) => !prev);
       }
+      */
     }
   };
 
