@@ -2,40 +2,33 @@ import { FlatList, StyleSheet } from "react-native";
 
 import { View } from "@/components/Themed";
 
-import { fetchHabits } from "@/api/habits.api.js";
-import { fetchHabitsLog } from "@/api/habits.log.api.js";
 
 import HabitCard from "@/components/habits/HabitCard";
 import Colors from "@/constants/Colors";
+import { useHabitStore } from "@/store/useHabitStore";
 import { useEffect, useState } from "react";
 
 export default function TabOneScreen() {
-  const [habits, setHabits] = useState<any>([]);
+  const habits = useHabitStore(s => s.habits);
+  const loading = useHabitStore(s => s.loading);
+  const initializeHabitsData = useHabitStore(s => s.initializeHabitsData);
 
-  const fetchHabitsData = async () => {
-    const data = await fetchHabits();
-    setHabits(data);
-    console.log('fetchHabitsData', data)
-  };
-
-  const fetchHabitsLogData = async () => {
-    const today = new Date();
-    const data = await fetchHabitsLog(today.getMonth(), today.getFullYear());
-    console.log('fetchHabitsLogData', data)
-  };
+  const [currentDate, setCurrentDate] = useState<string>('');
 
   useEffect(() => {
-    fetchHabitsData();
-    fetchHabitsLogData();
-  }, []);
+    const today = new Date().toISOString().split('T')[0];
+    setCurrentDate(today);
+
+    initializeHabitsData();
+  }, [initializeHabitsData]);
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.list}
         data={habits}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <HabitCard data={item} />}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <HabitCard habit={item} date={currentDate} />}
       />
     </View>
   );
@@ -53,3 +46,4 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.light.surface
   }
 });
+
