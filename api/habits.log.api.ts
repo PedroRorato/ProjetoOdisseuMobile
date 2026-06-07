@@ -1,9 +1,9 @@
 import { supabase } from "@/supabase-client";
-import { CreateHabitsLogInput } from "./types";
+import { CreateHabitsLogInput, HabitsLogRow } from "./types";
 
 const USER_ID = 1;
 
-export const fetchHabitsLog = async (month: number, year: number) => {
+export const fetchHabitsLog = async (month: number, year: number): Promise<HabitsLogRow[]> => {
   const firstDay = new Date(year, month, 1).toISOString().split("T")[0];
   const lastDay = new Date(year, month + 1, 0).toISOString().split("T")[0];
 
@@ -16,7 +16,7 @@ export const fetchHabitsLog = async (month: number, year: number) => {
 
   if (error) console.log('### ERROR: fetchHabitsLog ###', error);
 
-  return data;
+  return data as HabitsLogRow[];
 }
 
 export const postHabitLog = async (payload: CreateHabitsLogInput) => {
