@@ -1,5 +1,5 @@
+import Typography from "@/components/ui/Typography";
 import { StyleSheet, View } from "react-native";
-import Typography from "../Typography";
 
 const WEEK_DAYS = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab']
 

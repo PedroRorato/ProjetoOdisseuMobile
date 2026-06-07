@@ -1,22 +1,24 @@
 import { postHabitLog } from "@/api/habits.log.api";
 import Checkbox from "@/components/ui/Checkbox";
 import Typography from "@/components/ui/Typography";
+import { isCheckedHabitCard } from "@/helpers/habits";
 import { Habit } from "@/types/habit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 
 type HabitCardProps = {
-  data: Habit;
+  habit: Habit;
+  date: string;
 };
 
-const HabitCard = ({ data }: HabitCardProps) => {
+const HabitCard = ({ habit, date }: HabitCardProps) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleClick = async () => {
     const today = new Date().toISOString().split('T')[0];
 
     const payload = {
-      habit_id: data.id as number,
+      habit_id: habit.id,
       user_id: 1,
       date: today,
     }
@@ -24,15 +26,12 @@ const HabitCard = ({ data }: HabitCardProps) => {
     setIsChecked((prev) => !prev);
     if(!isChecked) {
       postHabitLog(payload)
-
-      /*
-      if (error) {
-        console.log("Error:", error);
-        setIsChecked((prev) => !prev);
-      }
-      */
     }
   };
+
+  useEffect(()=>{
+    setIsChecked(isCheckedHabitCard(habit, date))
+  }, [habit]);
 
   return (
     <Pressable onPress={handleClick}>
@@ -42,7 +41,7 @@ const HabitCard = ({ data }: HabitCardProps) => {
           variant="titleSmall"
           style={isChecked ? styles.checkedText : {}}
         >
-          {data.title}
+          {habit.title}
         </Typography>
       </View>
     </Pressable>

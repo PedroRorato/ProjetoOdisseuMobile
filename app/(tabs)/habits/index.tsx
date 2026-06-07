@@ -1,7 +1,7 @@
 import { ScrollView, StyleSheet } from "react-native";
 
 
-import HabitsGrid from "@/components/ui/HabitsGrid";
+import HabitsGrid from "@/components/habits/HabitsGrid";
 
 const Habits = () => {
   return (

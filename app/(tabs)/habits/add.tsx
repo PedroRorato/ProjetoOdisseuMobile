@@ -1,4 +1,4 @@
-import { postHabit } from "@/api/habits.api.js";
+import { postHabit } from "@/api/habits.api";
 import { View } from "@/components/Themed";
 import Button from "@/components/ui/Button";
 import FormInput from "@/components/ui/FormInput";

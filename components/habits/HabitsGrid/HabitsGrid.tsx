@@ -6,8 +6,7 @@ import { StyleSheet, View } from "react-native";
 import HabitsGridHeader from "./HabitsGridHeader";
 
 const HabitsGrid = () => {
-  //TODO: Check Zustand format
-  const initializeHabitsData = useHabitStore(state => state.initializeHabitsData)
+  const habits = useHabitStore(state => state.habits)
 
   const [days, setDays] = useState<any[]>([]);
 
@@ -20,8 +19,7 @@ const HabitsGrid = () => {
 
   useEffect(() => {
     getMonthDays();
-    initializeHabitsData();
-  }, [initializeHabitsData]);
+  }, [habits]);
 
   return (
     <View style={styles.container}>
