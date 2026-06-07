@@ -1,4 +1,5 @@
 import { supabase } from "@/supabase-client";
+import { CreateHabitsLogInput } from "./types";
 
 const USER_ID = 1;
 
@@ -18,7 +19,7 @@ export const fetchHabitsLog = async (month: number, year: number) => {
   return data;
 }
 
-export const postHabitLog = async (payload: any) => {
+export const postHabitLog = async (payload: CreateHabitsLogInput) => {
   const { error } = await supabase.from("habits_log").insert(payload).single();
 
   if (error) console.log('### ERROR: postHabitLog ###', error);
