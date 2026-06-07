@@ -1,3 +1,5 @@
-import { HabitRow } from "@/api/types";
+import { HabitRow, HabitsLogRow } from "@/api/types";
 
-export type Habit = HabitRow
+export type Habit = HabitRow & {
+  logs: HabitsLogRow[];
+}

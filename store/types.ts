@@ -1,6 +1,7 @@
+import { Habit } from "@/types/habit"
+
 export type HabitStore = {
-  habits: any[],
-  logs: any[],
+  habits: Habit[],
   loading: boolean,
   initializeHabitsData: () => Promise<void>
 }
