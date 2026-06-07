@@ -1,22 +1,22 @@
-import { postHabitLog } from "@/api/habitsLogApi";
-import { Task } from "@/types/task";
+import { postHabitLog } from "@/api/habits.log.api";
+import Checkbox from "@/components/ui/Checkbox";
+import Typography from "@/components/ui/Typography";
+import { Habit } from "@/types/habit";
 import { useState } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
-import Checkbox from "../Checkbox/Checkbox";
-import Typography from "../Typography";
 
-type TaskCardProps = {
-  data: Task;
+type HabitCardProps = {
+  data: Habit;
 };
 
-const TaskCard = ({ data }: TaskCardProps) => {
+const HabitCard = ({ data }: HabitCardProps) => {
   const [isChecked, setIsChecked] = useState(false);
 
   const handleClick = async () => {
     const today = new Date().toISOString().split('T')[0];
-    console.log("handleClick", today);
+
     const payload = {
-      habit_id: data.id,
+      habit_id: data.id as number,
       user_id: 1,
       date: today,
     }
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskCard;
+export default HabitCard;

@@ -2,10 +2,10 @@ import { FlatList, StyleSheet } from "react-native";
 
 import { View } from "@/components/Themed";
 
-import { fetchHabits } from "@/api/habitsApi";
-import { fetchHabitsLog } from "@/api/habitsLogApi";
+import { fetchHabits } from "@/api/habits.api.js";
+import { fetchHabitsLog } from "@/api/habits.log.api.js";
 
-import TaskCard from "@/components/ui/TaskCard/TaskCard";
+import HabitCard from "@/components/habits/HabitCard";
 import Colors from "@/constants/Colors";
 import { useEffect, useState } from "react";
 
@@ -35,7 +35,7 @@ export default function TabOneScreen() {
         style={styles.list}
         data={habits}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <TaskCard data={item} />}
+        renderItem={({ item }) => <HabitCard data={item} />}
       />
     </View>
   );

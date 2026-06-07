@@ -2,15 +2,8 @@ import { ScrollView, StyleSheet } from "react-native";
 
 
 import HabitsGrid from "@/components/ui/HabitsGrid";
-import { useEffect } from "react";
 
 const Habits = () => {
-
-
-  useEffect(() => {
-    //fetchHabitsLog();
-  }, []);
-
   return (
     <ScrollView style={styles.container}>
 

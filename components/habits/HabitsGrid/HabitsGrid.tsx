@@ -1,13 +1,13 @@
+import Typography from "@/components/ui/Typography";
 import { getMonthGridData } from "@/helpers/dates";
+import { useHabitStore } from "@/store/useHabitStore";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import Typography from "../Typography";
 import HabitsGridHeader from "./HabitsGridHeader";
 
-type HabitsGridProps = {
-};
-
 const HabitsGrid = () => {
+  //TODO: Check Zustand format
+  const initializeHabitsData = useHabitStore(state => state.initializeHabitsData)
 
   const [days, setDays] = useState<any[]>([]);
 
@@ -20,7 +20,8 @@ const HabitsGrid = () => {
 
   useEffect(() => {
     getMonthDays();
-  }, []);
+    initializeHabitsData();
+  }, [initializeHabitsData]);
 
   return (
     <View style={styles.container}>
