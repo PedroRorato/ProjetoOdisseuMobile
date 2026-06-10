@@ -1,19 +1,25 @@
 import Typography from "@/components/ui/Typography";
 import { getMonthGridData } from "@/helpers/dates";
 import { useHabitStore } from "@/store/useHabitStore";
+import { Habit, HabitGridCellData } from "@/types/habit";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
+import HabitsGridCell from "./HabitsGridCell";
 import HabitsGridHeader from "./HabitsGridHeader";
 
-const HabitsGrid = () => {
+type HabitsGridProps = {
+  habit: Habit;
+};
+
+const HabitsGrid = ({ habit }: HabitsGridProps) => {
   const habits = useHabitStore(state => state.habits)
 
-  const [days, setDays] = useState<any[]>([]);
+  const [cells, setCells] = useState<HabitGridCellData[]>([]);
 
   const getMonthDays = () => {
-    const daysArr = getMonthGridData(3, 2026)
+    const daysArr = getMonthGridData(5, 2026, habit.logs)
 
-    setDays(daysArr);
+    setCells(daysArr);
     console.log("daysArr", daysArr);
   }
 
@@ -23,20 +29,12 @@ const HabitsGrid = () => {
 
   return (
     <View style={styles.container}>
-      <Typography style={styles.title}>Acordar</Typography>
+      <Typography style={styles.title}>{habit.title}</Typography>
 
       <HabitsGridHeader/>
 
       <View style={styles.monthContainer}>
-        {days.map(day => {
-          let squareStyle = styles.square;
-          if(day) squareStyle = {...squareStyle, ...styles.filledSquare}
-          return (
-            <View style={squareStyle}>
-              <Typography variant='bodySmall' style={styles.squareText}>{day ? day.day : ''}</Typography>
-            </View>
-          )
-        })}
+        {cells.map(cellData => <HabitsGridCell cellData={cellData} />)}
       </View>
     </View>
   )
@@ -63,22 +61,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexWrap: 'wrap',
     rowGap: 3,
-  },
-  square: {
-    height: 24,
-    width: '13%',
-    borderRadius: 4,
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  filledSquare: {
-    backgroundColor: '#2da44e',
-  },
-  emptySquare: {
-    backgroundColor: '#eff2f5',
-  },
-  squareText: {
-    color: 'white',
-    textAlign: 'center',
   },
 });

@@ -1,5 +1,7 @@
 import { fetchHabits } from '@/api/habits.api';
 import { fetchHabitsLog } from '@/api/habits.log.api';
+import { HabitsLogRow } from '@/api/types';
+import { updateHabitsStoreData } from '@/helpers/dates';
 import { groupHabitsLogData } from '@/helpers/habits';
 import { create } from 'zustand';
 import { HabitStore } from './types';
@@ -8,7 +10,6 @@ import { HabitStore } from './types';
 export const useHabitStore = create<HabitStore>((set) => ({
   habits: [],
   loading: true,
-
   initializeHabitsData: async () => {
     set({ loading: true })
 
@@ -33,4 +34,9 @@ export const useHabitStore = create<HabitStore>((set) => ({
       set({ loading: false })
     }
   },
+  updateHabits: (newLog: HabitsLogRow) => {
+    set((state) => ({
+      habits: [...updateHabitsStoreData(state.habits, newLog)],
+    }))
+  }
 }))

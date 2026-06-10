@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     backgroundColor: Colors.light.primary,
     padding: 16,
+    borderRadius: 4,
   },
   text: {
     color: Colors.light.textOnPrimary,

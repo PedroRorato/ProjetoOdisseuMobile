@@ -7,7 +7,7 @@ const HabitsGridHeader = () => {
   return (
     <View style={styles.container}>
       {WEEK_DAYS.map(day => (
-        <View style={styles.dayContainer}>
+        <View key={day} style={styles.dayContainer}>
           <Typography variant='bodySmall' style={styles.text}>{day}</Typography>
         </View>
       ))}

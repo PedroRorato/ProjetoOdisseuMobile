@@ -19,8 +19,10 @@ export const fetchHabitsLog = async (month: number, year: number): Promise<Habit
   return data as HabitsLogRow[];
 }
 
-export const postHabitLog = async (payload: CreateHabitsLogInput) => {
-  const { error } = await supabase.from("habits_log").insert(payload).single();
+export const postHabitLog = async (payload: CreateHabitsLogInput): Promise<HabitsLogRow> => {
+  const { data, error } = await supabase.from("habits_log").insert(payload).select().single();
 
   if (error) console.log('### ERROR: postHabitLog ###', error);
+
+  return data;
 }

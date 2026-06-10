@@ -5,6 +5,7 @@ import { View } from "@/components/Themed";
 
 import HabitCard from "@/components/habits/HabitCard";
 import Colors from "@/constants/Colors";
+import { getDateString } from "@/helpers/dates";
 import { useHabitStore } from "@/store/useHabitStore";
 import { useEffect, useState } from "react";
 
@@ -16,9 +17,9 @@ export default function TabOneScreen() {
   const [currentDate, setCurrentDate] = useState<string>('');
 
   useEffect(() => {
-    const today = new Date().toISOString().split('T')[0];
-    setCurrentDate(today);
-
+    // Initialize with todays date
+    setCurrentDate(getDateString(new Date()));
+    // Initialize habits data from backend
     initializeHabitsData();
   }, [initializeHabitsData]);
 
